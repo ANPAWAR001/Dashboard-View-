@@ -1,0 +1,34 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-home',
+  standalone:true,
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent {
+
+  constructor(private router: Router) { }
+
+  // goToNextPage() {
+  //   window.open(window.location.href,'_blank')
+  //   this.router.navigate(['/next-page']);
+  // }
+  // goToNextPage() {
+  //   // Construct the URL for the next page
+  //   const nextPageUrl = this.router.serializeUrl(this.router.createUrlTree(['/next-page']));
+
+  //   // Open the URL in a new tab
+  //   window.open(nextPageUrl, '_blank');
+  // }
+  goToNextPage() {
+    // Construct the URL for the next page with query parameters
+    const nextPageUrl = this.router.serializeUrl(
+      this.router.createUrlTree(['/next-page'], { queryParams: { disabled: 'true' } })
+    );
+
+    // Open the URL in a new tab
+    window.open(nextPageUrl, '_blank');
+  }
+}
