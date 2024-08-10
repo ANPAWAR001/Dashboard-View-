@@ -35,3 +35,21 @@
     }
   }
   
+
+
+  .sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 10px;
+  }
+  
+  .sidebar.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  

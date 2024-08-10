@@ -1,28 +1,40 @@
-import { Component } from '@angular/core';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 
+import { Router,ActivatedRoute } from '@angular/router';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 @Component({
   selector: 'app-next-page',
+
   templateUrl: './next-page.component.html',
   styleUrls: ['./next-page.component.css']
 })
-export class NextPageComponent {
-  disabled:boolean = false;
-  constructor(private router: Router,private route:ActivatedRoute) { }
+export class NextPageComponent implements OnInit {
+  constructor(private router: Router, private renderer: Renderer2,private route: ActivatedRoute) { }
+  disableSidebar = false;
+  ngOnInit() {
+    // this.route.queryParams.subscribe(params => {
+    //   const disableSidebar = params['disableSidebar'] === 'true';
+    //   if (disableSidebar) {
+    //     document.querySelector('.sidebar')?.classList.add('disabled');
+    //   }
+    // });
 
-  ngOnInit(){
-    this.route.queryParams.subscribe((params)=>{
-      this.disabled=params['disabled'] === 'true';
-    })
-    if(!this.disabled){
-      this.router.navigate(['/home']);
+    // const disableSidebar = 'true';
+    // if(disableSidebar){
+    //   document.querySelector('.sidebar')?.classList.add('disabled');
+    // }
+     this.disableSidebar = localStorage.getItem('disableSidebar') === 'true';
+    if(this.disableSidebar){
+      document.querySelector('.sidebar')?.classList.add('disabled');
     }
-    this.disabled=true;
+    this.disableSidebar=false
+
   }
- 
-  
+
   goBack() {
-    // this.router.navigate(['/home']);
+    localStorage.setItem('disableSidebar', 'false');
     window.close();
   }
+  
 }
+

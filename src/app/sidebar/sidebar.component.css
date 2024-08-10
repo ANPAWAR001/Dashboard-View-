@@ -24,4 +24,12 @@
   .sidebar button:hover {
     background-color: #1abc9c;
   }
+
+
+  .sidebar.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    /* Add any other styles you want to apply when the sidebar is disabled */
+  }
+  
   

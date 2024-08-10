@@ -40,31 +40,26 @@ export class DashboardComponent implements OnInit {
   showSidebar: boolean = false;
   sidebarDisabled: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Check the initial route to determine whether to show the sidebar
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       this.showSidebar = event.urlAfterRedirects === '/home' || event.urlAfterRedirects === '/about';
-
-      // Check query parameters on navigation
-      this.route.queryParams.subscribe(params => {
-        if (params['disabled'] === 'true') {
-          this.sidebarDisabled = true;
-        } else {
-          this.sidebarDisabled = false;
-        }
-      });
     });
   }
 
+  navigateTo(page: string) {
+    this.router.navigate([`/${page}`]);
+  }
   goToNextPage() {
-    const nextPageUrl = this.router.serializeUrl(
-      this.router.createUrlTree(['/next-page'], { queryParams: { disabled: 'true' } })
-    );
+    this.sidebarDisabled = true;
+    window.open('/next-page', '_blank');
+  }
 
-    window.open(nextPageUrl, '_blank');
+  navigateToNextPage() {
+    const newTabUrl = `${window.location.origin}/next-page?disableSidebar=true`;
+    window.open(newTabUrl, '_blank');
   }
 }

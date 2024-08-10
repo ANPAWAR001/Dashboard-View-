@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private location: Location) { }
 
   // goToNextPage() {
   //   window.open(window.location.href,'_blank')
@@ -22,13 +24,22 @@ export class HomeComponent {
   //   // Open the URL in a new tab
   //   window.open(nextPageUrl, '_blank');
   // }
-  goToNextPage() {
-    // Construct the URL for the next page with query parameters
-    const nextPageUrl = this.router.serializeUrl(
-      this.router.createUrlTree(['/next-page'], { queryParams: { disabled: 'true' } })
-    );
+  // goToNextPage() {
+  //   // Construct the URL for the next page with query parameters
+  //   const nextPageUrl = this.router.serializeUrl(
+  //     this.router.createUrlTree(['/next-page'], { queryParams: { disabled: 'true' } })
+  //   );
 
-    // Open the URL in a new tab
-    window.open(nextPageUrl, '_blank');
+  // //   // Open the URL in a new tab
+  //   window.open(nextPageUrl, '_blank');
+  // }
+  navigateToNextPage() {
+    localStorage.setItem('disableSidebar', 'true');
+    const newTabUrl = `${window.location.origin}/next-page`; //?disableSidebar=true
+    window.open(newTabUrl, '_blank');
+  }
+
+  goback(){
+    this.location.back();
   }
 }

@@ -22,3 +22,10 @@
     background-color: #c0392b;
   }
   
+
+  .sidebar.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    /* Add any other styles you want to apply when the sidebar is disabled */
+  }
+  
